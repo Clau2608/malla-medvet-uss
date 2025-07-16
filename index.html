@@ -281,20 +281,25 @@
           };
 
           subjDiv.ondblclick = () => {
-            const cod = subj.codigo ? `Código: ${subj.codigo}` : '';
-            const sct = subj.sct ? `Créditos SCT: ${subj.sct}` : '';
-            let req = '';
-            if (subj.requisitos && subj.requisitos.trim() !== "" && subj.requisitos.trim().toLowerCase() !== "ninguno") {
-              req = `Requisito(s): ${subj.requisitos}`;
-            }
-            subjDiv.innerHTML = `<b>${subj.nombre}</b>
-              <div class="details">
-                ${cod}<br>
-                ${sct}<br>
-                ${req ? req + '<br>' : ''}
-                <span style="color:#2980b9;cursor:pointer;" onclick="renderMalla(malla)">Cerrar</span>
-              </div>`;
-          };
+  const original = subjDiv.innerHTML;
+  const cod = subj.codigo ? `Código: ${subj.codigo}` : '';
+  const sct = subj.sct ? `Créditos SCT: ${subj.sct}` : '';
+  let req = '';
+  if (subj.requisitos && subj.requisitos.trim() !== "" && subj.requisitos.trim().toLowerCase() !== "ninguno") {
+    req = `Requisito(s): ${subj.requisitos}`;
+  }
+  subjDiv.innerHTML = `<b>${subj.nombre}</b>
+    <div class="details">
+      ${cod}<br>
+      ${sct}<br>
+      ${req ? req + '<br>' : ''}
+      <span style="color:#2980b9;cursor:pointer;" class="cerrar">Cerrar</span>
+    </div>`;
+
+  subjDiv.querySelector('.cerrar').onclick = () => {
+    subjDiv.innerHTML = original;
+  };
+};
 
           semDiv.appendChild(subjDiv);
         });
